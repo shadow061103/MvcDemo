@@ -111,3 +111,7 @@ D:\VisualStudio開發專案\MvcDemo\MvcDemo\bin\zh-Hant\System.Web.Http.Owin.res
 D:\VisualStudio開發專案\MvcDemo\MvcDemo\obj\Debug\MvcDemo.csprojResolveAssemblyReference.cache
 D:\VisualStudio開發專案\MvcDemo\MvcDemo\obj\Debug\MvcDemo.dll
 D:\VisualStudio開發專案\MvcDemo\MvcDemo\obj\Debug\MvcDemo.pdb
+D:\VisualStudio開發專案\MvcDemo\MvcDemo\bin\Dapper.dll
+D:\VisualStudio開發專案\MvcDemo\MvcDemo\bin\PagedList.dll
+D:\VisualStudio開發專案\MvcDemo\MvcDemo\bin\Dapper.xml
+D:\VisualStudio開發專案\MvcDemo\MvcDemo\bin\PagedList.xml

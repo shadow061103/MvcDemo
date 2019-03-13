@@ -13,5 +13,14 @@ namespace MvcDemo.Controllers
         {
             return View();
         }
+        public ActionResult Create()
+        {
+            return View();
+        }
+        public ActionResult Update()
+        {
+            return View();
+        }
+
     }
 }
