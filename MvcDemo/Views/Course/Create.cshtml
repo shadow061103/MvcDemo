@@ -1,0 +1,41 @@
+﻿@model MvcDemo.Models.CreateViewModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <form action="@Url.Action("Create","Course")" method="post">
+        <div class="row">
+            <div class="offset-sm-3 col-sm-6">
+                <h2>新增課程</h2>
+                <hr />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="offset-sm-3 col-sm-6">
+                <label>課程名稱</label>
+                @Html.TextBoxFor(c => c.course.CourseName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.course.CourseName)
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="offset-sm-3 col-sm-6">
+                <label>地點</label>
+                @Html.TextBoxFor(c => c.course.Location, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c=> c.course.Location)
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="offset-sm-3 col-sm-6">
+                <input type="submit" class="btn btn-outline-primary btn-lg btn-block" value="送出"/>
+                
+            </div>
+
+        </div>
+
+
+    </form>
+</div>
+

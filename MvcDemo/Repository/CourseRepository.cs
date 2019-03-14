@@ -13,7 +13,7 @@ namespace MvcDemo.Repository
     public class CourseRepository : ICourseRepository<Course>
     {
         SqlConnection con = new SqlConnection(
-            WebConfigurationManager.ConnectionStrings["FitnessCenterConnectionString"].ConnectionString);
+            WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         public Course GetById(int Id)
         {
             Course model;
@@ -30,6 +30,10 @@ namespace MvcDemo.Repository
             {
                 throw ex;
             }
+            finally
+            {
+                con.Close();
+            }
             return model;
 
         }
@@ -40,13 +44,17 @@ namespace MvcDemo.Repository
             con.Open();
             try
             {
-               model = con.Query<Course>("select * from Course",
-                    null, commandTimeout: 300, commandType: CommandType.Text)
-                    .AsEnumerable();
+                model = con.Query<Course>("select * from Course where Status <> 0",
+                     null, commandTimeout: 300, commandType: CommandType.Text)
+                     .AsEnumerable();
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                con.Close();
             }
             return model;
 
@@ -68,7 +76,10 @@ namespace MvcDemo.Repository
             {
                 throw ex;
             }
-
+            finally
+            {
+                con.Close();
+            }
 
 
 
@@ -88,7 +99,10 @@ namespace MvcDemo.Repository
             {
                 throw ex;
             }
-
+            finally
+            {
+                con.Close();
+            }
 
         }
 
@@ -101,13 +115,17 @@ namespace MvcDemo.Repository
             para.Add("@Location", entity.Location, DbType.String, ParameterDirection.Input, 50);
             try
             {
-                con.Execute(@"Insert into Course(CourseName,Location,Status) Values(@CourseName,@Location,1)   where Id=@Id",
+                con.Execute(@"Insert into Course(CourseName,Location,Status) Values(@CourseName,@Location,1)",
                     para, commandTimeout: 300, commandType: CommandType.Text);
 
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                con.Close();
             }
         }
     }

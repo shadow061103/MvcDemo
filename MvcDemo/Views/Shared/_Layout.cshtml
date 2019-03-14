@@ -12,8 +12,8 @@
 
     
     <script src="~/Scripts/jquery-3.3.1.min .js"></script>
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <script src="~/Scripts/vue.js"></script>
+    
+    
     <style>
     .selector-for-some-widget {
   box-sizing: content-box;
@@ -45,19 +45,12 @@
    
     
     
-   @RenderBody()
+       @RenderBody()
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
-   
-
-
-    <script src="~/Scripts/popper.min.js"></script>
-    
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
-    
-   
-
-    
     @RenderSection("scripts", required: false)
 </body>
 </html>

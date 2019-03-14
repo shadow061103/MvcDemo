@@ -9,8 +9,12 @@ namespace MvcDemo.Service
 {
     public class CourseService
     {
+        private static readonly Lazy<CourseService> LazyInstance = new Lazy<CourseService>(() => new CourseService());
+        
+        public static CourseService Instance { get { return LazyInstance.Value; } }
+
         ICourseRepository<Course> repository;
-        public CourseService()
+        private CourseService()
         {
             repository= GenericFactory.CreateInastance<ICourseRepository<Course>>(typeof(CourseRepository));
         }
@@ -23,13 +27,29 @@ namespace MvcDemo.Service
         {
             return repository.Get();
         }
-        public void CreateCourse(Course model)
+        public bool CreateCourse(Course model)
         {
-            repository.Create(model);
+            var courses = GetCourses().Where(c => c.CourseName.Equals(model.CourseName));
+            if (courses.Count() == 0)
+            {
+                repository.Create(model);
+                return true;
+            }
+            else
+                return false;
+            
         }
-        public void UpdateCourse(Course model)
+        public bool UpdateCourse(Course model)
         {
-            repository.Update(model);
+            var courses = GetCourses().Where(c => c.CourseName.Equals(model.CourseName) && c.Id!=model.Id);
+            if (courses.Count() == 0)
+            {
+                repository.Update(model);
+                return true;
+            }
+            else
+                return false;
+                
         }
         public void DeleteCourse(int Id)
         {

@@ -1,0 +1,42 @@
+﻿@model MvcDemo.Models.Course
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <form action="@Url.Action("Update","Course")" method="post">
+        @Html.HiddenFor(c=>c.Id)
+        <div class="row">
+            <div class="offset-sm-3 col-sm-6">
+                <h2>編輯課程</h2>
+                <hr />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="offset-sm-3 col-sm-6">
+                <label>課程名稱</label>
+                @Html.TextBoxFor(c => c.CourseName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.CourseName)
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="offset-sm-3 col-sm-6">
+                <label>地點</label>
+                @Html.TextBoxFor(c => c.Location, new { @class = "form-control" })
+                @Html.ValidationMessageFor(c => c.Location)
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="offset-sm-3 col-sm-6">
+                <input type="submit" class="btn btn-outline-primary btn-lg btn-block" value="送出" />
+
+            </div>
+
+        </div>
+
+
+    </form>
+</div>
+

@@ -1,0 +1,140 @@
+﻿@model MvcDemo.Models.CourseListViewModel
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css
+{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    }
+
+<div class="container">
+    <form action="@Url.Action("Index","Course")" method="post" id="form1">
+
+
+
+        <div class="row">
+            <div class="offset-sm-3 col-sm-6">
+                <h2>課程列表</h2>
+                
+            </div>
+        </div>
+       
+            @if (Model.course.Count > 0)
+            { <div class="row">
+            <table class="table table-hover" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>課程名稱</th>
+                        <th>教室地點</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.course)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Update","Course",new { Id=item.Id})">編輯</a>
+                                <a href="#" onclick="Cancel(@item.Id)">刪除</a>
+
+                            </td>
+                            <td>@item.CourseName</td>
+                            <td>@item.Location</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="row">
+            <div class="offset-sm-3 col-sm-6" style="align-content:center;">
+                @Html.PagedListPager(Model.course, page => Url.Action("Index", new { page }))
+            </div>
+
+        </div>
+            }
+            else
+            {
+                <div class="row">
+                    <label>目前無資料!</label>
+                </div>
+           
+            }
+       
+        <div class="row form-group">
+            <div class="offset-sm-3 col-sm-6">
+                <button type="button" class="btn btn-default btn-lg btn-block" onclick="Insert()">新增課程</button>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.pagination>li>a[href]').each(function (i, item) {
+
+                var page = $(item).attr('href').replace(/[\/\?a-zA-Z\=]*/, '');
+                console.log('page:' + page);
+                $(item).attr('href', '#').click(function () { postPage(page); });
+
+            });
+        });
+        function postPage(page) {
+            $('<input>')
+                .attr({ type: 'hidden', id: 'PageIndex', name: 'PageIndex', value: page })
+                .appendTo($('#form1'));
+            $('#form1').submit();
+
+        };
+
+        function Insert()
+        {
+            window.location.href="@Url.Action("Create", "Course")"
+        }
+        function Cancel(Id)
+        {
+            var formdata = {
+                Id: Id
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Delete", "Course")",
+                processData: false,
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                console.log(data.success);
+                if (data.success)
+                {
+
+                    alert(data.ex);
+                    window.location.reload();
+                }
+                else
+                {
+                    alert(data.ex);
+
+                }
+            },
+            error: function (ex) {
+
+                alert(ex.Message);
+
+            }
+        })
+        }
+    </script>
+    
+
+    }
