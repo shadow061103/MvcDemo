@@ -57,7 +57,7 @@ namespace MvcDemo.Controllers
         {
             var model = CourseService.Instance.GetCourseById(Id);
             if (model == null)
-                ModelState.AddModelError("course.CourseName", "無此課程");
+                ModelState.AddModelError("CourseName", "無此課程");
             
             return View(model);
         }
@@ -68,7 +68,7 @@ namespace MvcDemo.Controllers
             {
                 bool result = CourseService.Instance.UpdateCourse(model);
                 if (!result)
-                    ModelState.AddModelError("course.CourseName", "已有此課程");
+                    ModelState.AddModelError("CourseName", "已有此課程");
                 else
                     return RedirectToAction("Index");
             }
